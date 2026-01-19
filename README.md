@@ -8,7 +8,7 @@ Clone this repository in your `$ZSH/custom/plugins` directory and add `terragrun
 ## Environment variables
 - `TERRAFORM_MODULES_PATH` must point to your current terraform modules root directory.
 ## Functions
-The `_tgts` functions extracts the subdirectories defined in the `source` variable in the current `terragrunt.hcl` file and executes `terragrunt ACTION --terragrunt-source $TERRAFORM_MODULES_PATH/source`. Take for example the following `terragrunt.hcl` file:
+The `_tgts` functions extracts the subdirectories defined in the `source` variable in the current `terragrunt.hcl` file and executes `terragrunt ACTION --source $TERRAFORM_MODULES_PATH/source`. Take for example the following `terragrunt.hcl` file:
 ```bash
 include "root" {
   path = find_in_parent_folders()
@@ -23,7 +23,7 @@ inputs = {}
 ```
 Then for example the call `_tgas apply` will execute
 ```bash
-terragrunt apply --terragrunt-source $TERRAFORM_MODULES_PATH/sqs-queue
+terragrunt apply --source $TERRAFORM_MODULES_PATH/sqs-queue
 ```
 
 ## Aliases
@@ -39,10 +39,10 @@ terragrunt apply --terragrunt-source $TERRAFORM_MODULES_PATH/sqs-queue
 | `tgis`    | `_tgts import`                                                                                                                                                                             |
 | `tgsps`   | `_tgts state push`|
 | `tgius` | `_tgts init -upgrade` |
-| `tgaall`  | `terragrunt run-all apply --terragrunt-non-interactive --terragrunt-parallelism 10`                                                                                                        |
-| `tgpall`  | `terragrunt run-all plan --terragrunt-non-interactive --terragrunt-parallelism 10`                                                                                                         |
-| `tgdall`  | `tgdall(){ local result; read "result?Are you sure (y/n)? "; [[ $result =~ ^[Yy]$ ]] && tg run-all destroy --terragrunt-non-interactive --terragrunt-parallelism 10 "$@" }; noglob tgdall` |
-| `tgasall` | `tgaall --terragrunt-source $(dirname $TERRAFORM_MODULES_PATH)`                                                                                                                            |
-| `tgpsall` | `tgpall --terragrunt-source $(dirname $TERRAFORM_MODULES_PATH)`                                                                                                                            |
-| `tgdsall` | `tgdall --terragrunt-source $(dirname $TERRAFORM_MODULES_PATH)`                                                                                                                            |
+| `tgaall`  | `terragrunt run-all apply --non-interactive --parallelism 10`                                                                                                        |
+| `tgpall`  | `terragrunt run-all plan --non-interactive --parallelism 10`                                                                                                         |
+| `tgdall`  | `tgdall(){ local result; read "result?Are you sure (y/n)? "; [[ $result =~ ^[Yy]$ ]] && tg run-all destroy --non-interactive --parallelism 10 "$@" }; noglob tgdall` |
+| `tgasall` | `tgaall --source $(dirname $TERRAFORM_MODULES_PATH)`                                                                                                                            |
+| `tgpsall` | `tgpall --source $(dirname $TERRAFORM_MODULES_PATH)`                                                                                                                            |
+| `tgdsall` | `tgdall --source $(dirname $TERRAFORM_MODULES_PATH)`                                                                                                                            |
 | `clearTerragruntCache` | `fd -t d -H -I .terragrunt-cache -X rm -rf`                                                                                                                                   |
