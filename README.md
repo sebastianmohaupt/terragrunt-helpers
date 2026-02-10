@@ -7,6 +7,14 @@ Oh My Zsh plugin for working with [terragrunt](https://terragrunt.gruntwork.io/)
 Clone this repository in your `$ZSH/custom/plugins` directory and add `terragrunt-helpers` to your `plugins` list in `~/.zshrc`.
 ## Environment variables
 - `TERRAFORM_MODULES_PATH` must point to your current terraform modules root directory.
+
+The plugin also sets the following environment variables to enable provider caching (see [Terraform Provider Plugin Cache](https://developer.hashicorp.com/terraform/cli/config/config-file#provider-plugin-cache) and [Terragrunt Provider Cache](https://terragrunt.gruntwork.io/docs/features/provider-cache/)):
+
+| Variable                 | Value                                  |
+| ------------------------ | -------------------------------------- |
+| `TF_PLUGIN_CACHE_DIR`   | `$HOME/.terraform.d/plugin-cache`      |
+| `TG_PROVIDER_CACHE`     | `1`                                    |
+| `TG_PROVIDER_CACHE_DIR` | `$TF_PLUGIN_CACHE_DIR`                 |
 ## Functions
 The `_tgts` functions extracts the subdirectories defined in the `source` variable in the current `terragrunt.hcl` file and executes `terragrunt ACTION --source $TERRAFORM_MODULES_PATH/source`. Take for example the following `terragrunt.hcl` file:
 ```bash
